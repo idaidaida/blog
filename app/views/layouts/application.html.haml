@@ -11,6 +11,5 @@
   %body
     %nav.navbar.navbar-light.shadow-sm
       .container
-        %a.navbar-brand(href="#") Blogs
-    .container.py-3
-      = yield
+        = link_to "Blogs", root_path, class:"navbar-brand"
+    = yield
