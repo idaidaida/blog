@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :accounts, controllers:{ 
+    :registrations => 'accounts/registrations', #登録用のコントローラ    
+    :sessions => 'accounts/sessions' #ログイン用のコントローラ 
+    }
 end
