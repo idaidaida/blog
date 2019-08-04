@@ -9,7 +9,12 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %nav.navbar.navbar-light.shadow-sm
+    %nav.navbar.navbar-light.shadow-sm.navbar-expand-lg
       .container
         = link_to "Blogs", root_path, class:"navbar-brand"
+        %button.navbar-toggler{data:{toggle:"collapse",target:"#navbar-content"}}
+          %span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbar-content
+          - if account_signed_in?
+            = link_to "ログアウト", destroy_account_session_path,class:"btn btn-light ml-auto",method: :delete
     = yield

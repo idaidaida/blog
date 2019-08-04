@@ -1,0 +1,17 @@
+.container
+    .row.py-4
+        .col-3
+            .list-group.list-group-flush
+                = link_to "エントリー一覧", entries_path, class:"list-group-item .text-black"
+                = link_to "エントリー登録", new_entry_path, class:"list-group-item .text-black"
+                %a.list-group-item.text-black(href="#") エントリー検索
+                %a.list-group-item.text-black(href="#") アカウント設定
+        .col-9.text-gray
+            %h4.py-3 エントリー登録
+            = simple_form_for @entry do |f|
+                .form-group
+                    = f.input :title,required: true,autofocus: true,input_html: { class:"form-control" }
+                .form-group
+                    = f.input :contents,required: true,autofocus: true,input_html: { class:"form-control" }
+                .form-group
+                    = f.submit :submit,class:"btn btn-primary"
