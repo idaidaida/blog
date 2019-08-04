@@ -7,5 +7,7 @@ Rails.application.routes.draw do
       root to: "devise/sessions#new"
     end
 
-    resources :entries
+    resources :entries do
+      resources :comments
+    end
 end

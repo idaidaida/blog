@@ -21,6 +21,13 @@ class EntriesController < ApplicationController
         end
     end
 
+    def show
+        @entry = Entry.find(params[:id])
+        @comments = @entry.comments.all
+        @comment = @entry.comments.new
+
+    end
+
     private
         def create_params
             params.require(:entry).permit(:title,:contents)
