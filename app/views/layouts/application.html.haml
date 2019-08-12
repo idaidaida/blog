@@ -16,5 +16,5 @@
           %span.navbar-toggler-icon
         .collapse.navbar-collapse#navbar-content
           - if account_signed_in?
-            = link_to "ログアウト", destroy_account_session_path,class:"btn btn-light ml-auto",method: :delete
+            = link_to "ログアウト", destroy_account_session_path,class:"btn btn-info ml-auto",method: :delete
     = yield

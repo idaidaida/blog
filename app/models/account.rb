@@ -5,4 +5,6 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :comments
   has_many :entries
+
+  validates :dispname, presence: true  
 end

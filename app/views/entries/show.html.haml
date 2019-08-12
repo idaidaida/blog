@@ -2,26 +2,31 @@
     .row.py-4
         .col-3
             .list-group.list-group-flush
-                %a.list-group-item.text-black(href="#") エントリー一覧
+                = link_to "エントリー一覧", entries_path, class:"list-group-item .text-black"
                 = link_to "エントリー登録", new_entry_path, class:"list-group-item .text-black"
-                %a.list-group-item.text-black(href="#") エントリー検索
-                %a.list-group-item.text-black(href="#") アカウント設定
+                = link_to "メンバー一覧", accounts_path, class:"list-group-item .text-black"
         .col-9.text-gray
             .pt-3
                 = link_to "←戻る", entries_path
-            %h4.pt-3.pb-1 [##{@entry.id}] #{@entry.title}
+            %small 作者：#{@entry.createby.dispname}
+            .d-flex.align-items-center
+                %h4.pb-1.d-inline.mr-auto [##{@entry.id}] #{@entry.title}
+                - if @entry.createby == current_account
+                    = link_to "編集", edit_entry_path(@entry),class:"btn btn-info mr-1"
+                    = link_to "削除", entry_path(@entry),class:"btn btn-info",method: :delete
             .py-3
-                #{@entry.contents}
-            %hr/
-            - @comments.each do |comment|
                 .card.border-0.bg-light.mb-1
                     .card-body
-                        %small #{comment.created_at} #{comment.commenter.email}
-                        %hr.divider/
-                        .py-1
-                            #{comment.contents}
+                        = simple_format(@entry.contents)
+            .box
+                %strong コメント
+            - @comments.order(id: "DESC").each do |comment|
+                %small #{comment.created_at.strftime('%Y/%m/%d %H:%M')} #{comment.commenter.dispname}
+                %hr.divider/
+                .py-1.pb-2
+                    = simple_format(comment.contents)
             = simple_form_for @comment, url: entry_comments_path(@entry) do |f|
                 .form-group
-                    = f.input :contents,required: true,autofocus: true,input_html: { class:"form-control" }
+                    = f.input :contents,required: true,input_html: { class:"form-control" },label:false
                 .form-group
                     = f.submit :submit,class:"btn btn-primary"

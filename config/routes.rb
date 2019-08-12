@@ -3,10 +3,10 @@ Rails.application.routes.draw do
     :registrations => 'accounts/registrations', #登録用のコントローラ    
     :sessions => 'accounts/sessions' #ログイン用のコントローラ 
     }
+  resources :accounts, only:[:index]
     devise_scope :account do
       root to: "devise/sessions#new"
     end
-
     resources :entries do
       resources :comments
     end

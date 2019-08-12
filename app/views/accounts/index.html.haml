@@ -1,0 +1,13 @@
+.container
+    .row.py-4
+        .col-3
+            .list-group.list-group-flush
+                = link_to "エントリー一覧", entries_path, class:"list-group-item .text-black"
+                = link_to "エントリー登録", new_entry_path, class:"list-group-item .text-black"
+                = link_to "メンバー一覧", accounts_path, class:"list-group-item .text-black"
+        .col-9.text-gray
+            %h4.py-3 アカウント一覧
+            - @accounts.order(id: "DESC").each do |account|
+                .card.shadow-sm.mb-2.link-text-black
+                    .card-body
+                        #{account.dispname}

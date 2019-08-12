@@ -2,19 +2,29 @@
     .row.py-4
         .col-3
             .list-group.list-group-flush
-                %a.list-group-item.text-black(href="#") エントリー一覧
+                = link_to "エントリー一覧", entries_path, class:"list-group-item .text-black"
                 = link_to "エントリー登録", new_entry_path, class:"list-group-item .text-black"
-                %a.list-group-item.text-black(href="#") エントリー検索
-                %a.list-group-item.text-black(href="#") アカウント設定
+                = link_to "メンバー一覧", accounts_path, class:"list-group-item .text-black"
         .col-9.text-gray
             %h4.py-3 エントリー一覧
-            .input-group.mb-4
-                %input.form-control(type="text")/
-                .input-group-append
-                    %button.btn.btn-secondary Filter
-            - @entries.each do |entry|
-                = link_to entry_path(entry) do
-                    .card.shadow-sm.mb-2
-                        .card-body
-                            %h5 #{entry.title}
-                            %p #{entry.contents}
+            = search_form_for @search do |f|
+                .input-group.mb-4
+                    = f.text_field :title_or_contents_cont, class:"form-control"
+                    .input-group-append
+                        = f.submit "フィルター", class:"btn btn-info"
+            - if @result.any?
+                - @result.order(id: "DESC").each do |entry|
+                    = link_to entry_path(entry) do
+                        .card.shadow-sm.mb-2.link-text-black
+                            .card-body
+                                %small #{entry.created_at.strftime('%Y/%m/%d %H:%M')} 作者：#{entry.createby.dispname}
+                                %h5 [##{entry.id}] #{entry.title}
+                                #{entry.contents}
+            - else
+                - @entries.order(id: "DESC").each do |entry|
+                    = link_to entry_path(entry) do
+                        .card.shadow-sm.mb-2.link-text-black
+                            .card-body
+                                %small #{entry.created_at.strftime('%Y/%m/%d %H:%M')} 作者：#{entry.createby.dispname}
+                                %h5 #{entry.title}
+                                %p #{entry.contents}

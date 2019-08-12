@@ -1,0 +1,25 @@
+ja:
+  activerecord:
+    models:
+      account: アカウント
+      entry: エントリー
+      comment: コメント
+      timeline: タイムライン
+    attributes:
+        account:
+          id: ID
+          email: Eメール
+          password: パスワード
+          dispname: 表示名
+        entry:
+          title: タイトル
+          contents: 内容
+          createby: 作成者
+        comment:
+          contents: コメント内容
+          commenter: 作成者
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      html: '<abbr class="bg-danger text-white px-2 py-1">必須</abbr>'
